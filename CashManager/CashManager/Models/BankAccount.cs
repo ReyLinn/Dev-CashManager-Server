@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
+namespace CashManager.Models
+{
+    public class BankAccount
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        public float MaxAmount { get; set; }
+
+        [Required]
+        public float Balance { get; set; }
+
+        [Required]
+        public bool IsBlocked { get; set; }
+
+        [Required]
+        public int OwnerId { get; set; }
+
+        [Required]
+        public User Owner { get; set; }
+    }
+}
