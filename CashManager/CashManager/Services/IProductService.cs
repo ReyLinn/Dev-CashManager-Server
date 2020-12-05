@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CashManager.Services
 {
-    interface IProductService
+    public interface IProductService
     {
         public Product GetProductByReference(string reference);
     }

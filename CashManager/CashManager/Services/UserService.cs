@@ -62,6 +62,9 @@ namespace CashManager.Services
                             success = true;
                             message = "Payment validated.";
                         }
+                    }
+                    else
+                    {
                         message = "Maximum of transactions per minutes reached.";
                     }
                 }

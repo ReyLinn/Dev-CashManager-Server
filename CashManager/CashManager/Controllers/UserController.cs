@@ -9,21 +9,22 @@ namespace CashManager.Controllers
 {
     public class UserController : Controller
     {
+        private readonly IUserService _userService;
+        private readonly IProductService _productService;
 
-        private readonly UserService _userService;
-        private readonly ProductService _productService;
-
-        public UserController(UserService userService, ProductService productService)
+        public UserController(IUserService userService, IProductService productService)
         {
             _userService = userService;
             _productService = productService;
         }
 
+        [HttpGet]
         public JsonResult Index()
         {
             return Json(new { message  = "Hello There !" });
         }
 
+        [HttpPost]
         public JsonResult Login(string username, string password)
         {
             if(!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
@@ -37,6 +38,7 @@ namespace CashManager.Controllers
             return Json(new { success = false });
         }
 
+        [HttpGet]
         public JsonResult GetProductPrice(string productReference)
         {
             var product = _productService.GetProductByReference(productReference);
@@ -47,6 +49,7 @@ namespace CashManager.Controllers
             return Json(new { sucess = false, message = "Product not found." });
         }
 
+        [HttpPost]
         public JsonResult Pay(int userId, float ammount, bool isCreditCard)
         {
             var result = Tuple.Create<bool, string>(false, "The ammount should be over 0.");

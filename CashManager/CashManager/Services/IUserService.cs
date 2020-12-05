@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CashManager.Services
 {
-    interface IUserService
+    public interface IUserService
     {
         public User GetUserByLogins(string username, string password);
 
