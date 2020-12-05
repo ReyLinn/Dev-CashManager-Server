@@ -18,6 +18,11 @@ namespace CashManager.Models
         public string Password { get; set; }
 
         [Required]
+        public int NnOfWrongCards { get; set; }
+
+        [Required]
+        public int NbOfWrongCheques { get; set; }
+
         public BankAccount BankAccount { get; set; }
 
         public ICollection<Transaction> Transactions { get; set; }

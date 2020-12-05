@@ -1,0 +1,6 @@
+{
+  "NbOfWrongCards" :  3,
+  "NbOfWrongCheques" :  3,
+  "MaximumCostOfTransaction" :  1000,
+  "NumberOfTransactionPerMinute" : 2 
+}

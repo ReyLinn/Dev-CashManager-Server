@@ -12,13 +12,7 @@ namespace CashManager.Models
         public int Id { get; set; }
 
         [Required]
-        public float MaxAmount { get; set; }
-
-        [Required]
         public float Balance { get; set; }
-
-        [Required]
-        public bool IsBlocked { get; set; }
 
         [Required]
         public int OwnerId { get; set; }

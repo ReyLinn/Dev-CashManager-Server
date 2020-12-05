@@ -11,10 +11,17 @@ namespace CashManager.Controllers
     {
 
         private readonly UserService _userService;
+        private readonly ProductService _productService;
 
-        public UserController(UserService userService)
+        public UserController(UserService userService, ProductService productService)
         {
             _userService = userService;
+            _productService = productService;
+        }
+
+        public JsonResult Index()
+        {
+            return Json(new { message  = "Hello There !" });
         }
 
         public JsonResult Login(string username, string password)
@@ -24,23 +31,34 @@ namespace CashManager.Controllers
                 var user = _userService.GetUserByLogins(username, password);
                 if(user != null)
                 {
-                    return Json(new { success = true, user = user });
+                    return Json(new { success = true, user.Id });
                 }
             }
-
             return Json(new { success = false });
         }
 
-        public JsonResult Pay(int userId, float ammount)
+        public JsonResult GetProductPrice(string productReference)
         {
+            var product = _productService.GetProductByReference(productReference);
+            if(product != null)
+            {
+                return Json(new { success = true, price = product.Price });
+            }
+            return Json(new { sucess = false, message = "Product not found." });
+        }
+
+        public JsonResult Pay(int userId, float ammount, bool isCreditCard)
+        {
+            var result = Tuple.Create<bool, string>(false, "The ammount should be over 0.");
             if(ammount > 0)
             {
                 var user = _userService.GetUserById(userId);
                 if(user != null)
                 {
-                    _userService.Pay(userId, ammount)
+                    result = _userService.Pay(userId, ammount, isCreditCard);
                 }
             }
+            return Json(new { success = result.Item1, message = result.Item2});
         }
     }
 }

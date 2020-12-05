@@ -1,4 +1,5 @@
 using CashManager.Data;
+using CashManager.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,9 @@ namespace CashManager
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,7 +64,7 @@ namespace CashManager
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=User}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

@@ -40,6 +40,36 @@ namespace CashManager.Data
             builder.Entity<Product>()
                 .HasIndex(p => p.Reference)
                 .IsUnique();
+
+            builder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 1,
+                    Username = "Username1",
+                    Password = "Password1",
+                    NbOfWrongCheques = 0,
+                    NnOfWrongCards = 0
+                }    
+            );
+
+            builder.Entity<BankAccount>().HasData(
+                new BankAccount
+                {
+                    Id = 1,
+                    Balance = 10000,
+                    OwnerId = 1
+                }
+            );
+
+            builder.Entity<Product>().HasData(
+                new Product
+                {
+                    Id = 1,
+                    Name = "Produit de test",
+                    Price = 10,
+                    Reference = "00000001"
+                }            
+            );
         }
     }
 }

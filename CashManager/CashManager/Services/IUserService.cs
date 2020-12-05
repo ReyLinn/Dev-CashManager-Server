@@ -12,6 +12,6 @@ namespace CashManager.Services
 
         public User GetUserById(int userId);
 
-        public bool Pay(int userId, float ammount);
+        public Tuple<bool, string> Pay(int userId, float ammount, bool isCreditCard);
     }
 }
