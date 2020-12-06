@@ -46,7 +46,7 @@ namespace CashManager.Controllers
             {
                 return Json(new { success = true, price = product.Price });
             }
-            return Json(new { sucess = false, message = "Product not found." });
+            return Json(new { success = false, message = "Product not found." });
         }
 
         [HttpPost]

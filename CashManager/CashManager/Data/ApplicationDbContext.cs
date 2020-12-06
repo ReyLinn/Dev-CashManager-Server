@@ -51,6 +51,18 @@ namespace CashManager.Data
                 }    
             );
 
+            builder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 2,
+                    Username = "Username2",
+                    Password = "Password2",
+                    NbOfWrongCheques = 2,
+                    NnOfWrongCards = 2
+                }
+            );
+
+
             builder.Entity<BankAccount>().HasData(
                 new BankAccount
                 {
