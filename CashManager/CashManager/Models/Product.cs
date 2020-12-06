@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CashManager.Models
 {
+    /// <summary>
+    /// The Products to pay for
+    /// </summary>
     public class Product
     {
         [Key]

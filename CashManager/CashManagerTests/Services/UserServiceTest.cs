@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 using Moq;
 using CashManager.Data;
+using CashManager.Models;
+using CashManager.Controllers;
 
 namespace CashManager.Services.Tests
 {
@@ -25,18 +27,13 @@ namespace CashManager.Services.Tests
                     NnOfWrongCards = 0
                 });
 
-
-
-
             var userController = new UserController(mock.Object, null);
             var jsonString = userController.Login("Username1", "Password1");
 
-            String resultGen = (jsonString.Value).ToString();
-            String resultBase = "{ success = True, Id = 1 }";
+            var resultGen = (jsonString.Value).ToString();
+            var resultBase = "{ success = True, Id = 1 }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
-
-
             Assert.Fail();
         }
 

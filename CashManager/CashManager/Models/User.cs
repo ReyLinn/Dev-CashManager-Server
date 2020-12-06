@@ -6,6 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CashManager.Models
 {
+    /// <summary>
+    /// The Users of the application
+    /// </summary>
     public class User
     {
         [Key]
@@ -23,8 +26,14 @@ namespace CashManager.Models
         [Required]
         public int NbOfWrongCheques { get; set; }
 
+        /// <summary>
+        /// The BankAccount of the User
+        /// </summary>
         public BankAccount BankAccount { get; set; }
 
+        /// <summary>
+        /// All the Transactions of the User
+        /// </summary>
         public ICollection<Transaction> Transactions { get; set; }
     }
 }

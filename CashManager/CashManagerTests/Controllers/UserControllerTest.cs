@@ -13,7 +13,6 @@ namespace CashManager.Controllers.Tests
     [TestClass()]
     public class UserControllerTest
     {
-
         /**
          * Test methode Login - SUCCESS // Good Login
          * @Author Barthelmebs Alexis
@@ -31,18 +30,16 @@ namespace CashManager.Controllers.Tests
             var userController = new UserController(mock.Object, null);
             var jsonString = userController.Login("Username1", "Password1");
 
-            String resultGen = (jsonString.Value).ToString();
-            String resultBase = "{ success = True, Id = 1 }";
+            var resultGen = (jsonString.Value).ToString();
+            var resultBase = "{ success = True, Id = 1 }";
 
             Assert.AreEqual(resultGen, resultBase , "Should be ok");
-
         }
 
         /**
          * Test methode Login - SUCCESS // Wrong Username
          * @author Barthelmebs Alexis
          */
-
         [TestMethod]
         public void LoginTestFailUser()
         {
@@ -56,18 +53,16 @@ namespace CashManager.Controllers.Tests
             var userController = new UserController(mock.Object, null);
             var jsonString = userController.Login("Wrong", "Password1");
 
-            String resultGen = (jsonString.Value).ToString();
-            String resultBase = "{ success = False }";
+            var resultGen = (jsonString.Value).ToString();
+            var resultBase = "{ success = False }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
-
         }
 
         /**
          * Test methode Login - SUCCESS // Wrong Password
          * @author Barthelmebs Alexis
          */
-
         [TestMethod]
         public void LoginTestFailPass()
         {
@@ -81,19 +76,16 @@ namespace CashManager.Controllers.Tests
             var userController = new UserController(mock.Object, null);
             var jsonString = userController.Login("Username1", "Wrong");
 
-            String resultGen = (jsonString.Value).ToString();
-            String resultBase = "{ success = False }";
+            var resultGen = (jsonString.Value).ToString();
+            var resultBase = "{ success = False }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
-
         }
-
 
         /**
          * Test methode GetPriceTest - SUCCESS // good product ref
          * @author Barthelmebs Alexis
          */
-
         [TestMethod]
         public void GetProductPriceTestSucces()
         {
@@ -107,18 +99,16 @@ namespace CashManager.Controllers.Tests
             var userController = new UserController(null, mock.Object);
             var jsonString = userController.GetProductPrice("00000001");
 
-            String resultGen = (jsonString.Value).ToString();
-            String resultBase = "{ success = True, price = 10 }";
+            var resultGen = (jsonString.Value).ToString();
+            var resultBase = "{ success = True, price = 10 }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
-
         }
 
         /**
          * Test methode GetPriceTest - SUCCESS // wrong product ref
          * @author Barthelmebs Alexis
          */
-
         [TestMethod]
         public void GetProductPriceTestFail()
         {
@@ -132,19 +122,16 @@ namespace CashManager.Controllers.Tests
             var userController = new UserController(null, mock.Object);
             var jsonString = userController.GetProductPrice("00000001");
 
-            String resultGen = (jsonString.Value).ToString();
-            String resultBase = "{ success = False, message = Product not found. }";
+            var resultGen = (jsonString.Value).ToString();
+            var resultBase = "{ success = False, message = Product not found. }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
-
         }
-
 
         /**
          * Test methode Pay - SUCCESS // all good
          * @author Barthelmebs Alexis
          */
-
         [TestMethod]
         public void PayTestSuccess()
         {
@@ -164,22 +151,17 @@ namespace CashManager.Controllers.Tests
             var userController = new UserController(mock.Object, null);
             var jsonString = userController.Pay(1, 100, true);
 
-            String resultGen = (jsonString.Value).ToString();
-            String resultBase = "{ success = False, message = Payement validated. }";
+            var resultGen = (jsonString.Value).ToString();
+            var resultBase = "{ success = False, message = Payement validated. }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
         }
-
-
-
 
         /**
         * Test methode Pay - SUCCESS // fail getUserbyId
         * la méthode Pay de UserService est testée dans UserServiceTest
         * @author Barthelmebs Alexis
         */
-
-
         [TestMethod]
         public void PayTestFailByGetUser()
         {
@@ -190,11 +172,10 @@ namespace CashManager.Controllers.Tests
             var userController = new UserController(mock.Object, null);
             var jsonString = userController.Pay(1, 100, true);
 
-            String resultGen = (jsonString.Value).ToString();
-            String resultBase = "{ success = False, message = The ammount should be over 0. }";
+            var resultGen = (jsonString.Value).ToString();
+            var resultBase = "{ success = False, message = The ammount should be over 0. }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
         }
-
     }
 }

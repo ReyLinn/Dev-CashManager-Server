@@ -6,6 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CashManager.Models
 {
+    /// <summary>
+    /// The User's BankAccount
+    /// </summary>
     public class BankAccount
     {
         [Key]

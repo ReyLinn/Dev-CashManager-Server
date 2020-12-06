@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace CashManager.Models
 {
+    /// <summary>
+    /// The payment Configuration from a Json File
+    /// </summary>
     public class PaymentConfig
     {
         public int NbOfWrongCards { get; set; }
