@@ -17,24 +17,17 @@ namespace CashManager.Services.Tests
         public void GetUserByLoginsTest()
         {
             var mock = new Mock<ApplicationDbContext>();
-            mock.Setup(x => x.("Username1", "Password1"))
-                .Returns(new User
-                {
-                    Id = 1,
-                    Username = "Username1",
-                    Password = "Password1",
-                    NbOfWrongCheques = 0,
-                    NnOfWrongCards = 0
-                });
+            mock.Setup(x => x.Users.Add(new User {
+                Id = 1,
+                Username = "Username1",
+                Password = "Password1",
+            }));
 
-            var userController = new UserController(mock.Object, null);
-            var jsonString = userController.Login("Username1", "Password1");
+            var userService = new UserService(mock.Object);
+            var user = userService.GetUserByLogins("Username1", "Password1");
 
-            var resultGen = (jsonString.Value).ToString();
-            var resultBase = "{ success = True, Id = 1 }";
-
-            Assert.AreEqual(resultGen, resultBase, "Should be ok");
-            Assert.Fail();
+            Assert.IsNotNull(user, "User should not be null");
+            Assert.AreEqual(user.Id, 1, "User Id should be 1");
         }
 
         [TestMethod()]
