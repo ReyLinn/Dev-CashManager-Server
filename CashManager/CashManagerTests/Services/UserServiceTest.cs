@@ -18,7 +18,7 @@ namespace CashManager.Services.Tests
         public void GetUserByLoginsTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-              .UseInMemoryDatabase(databaseName: "CashManagerDatabase")
+              .UseInMemoryDatabase(databaseName: "GetUserByLoginsTest")
               .Options;
 
             User user;
@@ -32,7 +32,7 @@ namespace CashManager.Services.Tests
                     Username = "Username1",
                     Password = "Password1",
                     NbOfWrongCheques = 0,
-                    NnOfWrongCards = 0
+                    NbOfWrongCards = 0
                 });
                 context.SaveChanges();
                 user = userService.GetUserByLogins("Username1", "Password1");
@@ -46,7 +46,7 @@ namespace CashManager.Services.Tests
         public void GetUserByLoginsTestFail()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase(databaseName: "CashManagerDatabase")
+               .UseInMemoryDatabase(databaseName: "GetUserByLoginsTestFail")
                .Options;
 
             User user;
@@ -60,7 +60,7 @@ namespace CashManager.Services.Tests
                     Username = "Username2",
                     Password = "Password2",
                     NbOfWrongCheques = 0,
-                    NnOfWrongCards = 0
+                    NbOfWrongCards = 0
                 });
                 context.SaveChanges();
                 user = userService.GetUserByLogins("Username1", "Password1");
@@ -74,7 +74,7 @@ namespace CashManager.Services.Tests
         public void GetUserByIdTestSuccess()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-              .UseInMemoryDatabase(databaseName: "CashManagerDatabase")
+              .UseInMemoryDatabase(databaseName: "GetUserByIdTestSuccess")
               .Options;
 
             User user;
@@ -88,7 +88,7 @@ namespace CashManager.Services.Tests
                     Username = "Username1",
                     Password = "Password1",
                     NbOfWrongCheques = 0,
-                    NnOfWrongCards = 0
+                    NbOfWrongCards = 0
                 });
                 context.SaveChanges();
                 user = userService.GetUserById(1);
@@ -99,7 +99,7 @@ namespace CashManager.Services.Tests
             userBase.Username = "Username1";
             userBase.Password = "Password1";
             userBase.NbOfWrongCheques = 0;
-            userBase.NnOfWrongCards = 0;
+            userBase.NbOfWrongCards = 0;
             userBase.BankAccount = null;
 ;
 
@@ -108,7 +108,7 @@ namespace CashManager.Services.Tests
             Assert.AreEqual(user.Username, userBase.Username, "Should be equals");
             Assert.AreEqual(user.Password, userBase.Password, "Should be equals") ;
             Assert.AreEqual(user.NbOfWrongCheques, userBase.NbOfWrongCheques, "Should be equals");
-            Assert.AreEqual(user.NnOfWrongCards, userBase.NnOfWrongCards, "Should be equals");
+            Assert.AreEqual(user.NbOfWrongCards, userBase.NbOfWrongCards, "Should be equals");
             Assert.AreEqual(user.BankAccount, userBase.BankAccount, "Should be equals");
         }
 
@@ -116,7 +116,7 @@ namespace CashManager.Services.Tests
         public void GetUserByIdTestFail()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase(databaseName: "CashManagerDatabase")
+               .UseInMemoryDatabase(databaseName: "GetUserByIdTestFail")
                .Options;
 
             User user;
@@ -130,13 +130,14 @@ namespace CashManager.Services.Tests
                     Username = "Username1",
                     Password = "Password1",
                     NbOfWrongCheques = 0,
-                    NnOfWrongCards = 0
+                    NbOfWrongCards = 0
                 });
                 context.SaveChanges();
                 user = userService.GetUserById(2);
             }
 
             Assert.IsNull(user);
+
         }
 
         [TestMethod()]
@@ -147,7 +148,7 @@ namespace CashManager.Services.Tests
 
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-              .UseInMemoryDatabase(databaseName: "CashManagerDatabase")
+              .UseInMemoryDatabase(databaseName: "PayTestCreditCardSucess")
               .Options;
 
             using (var context = new ApplicationDbContext(options))
@@ -159,7 +160,7 @@ namespace CashManager.Services.Tests
                     Username = "Username1",
                     Password = "Password1",
                     NbOfWrongCheques = 0,
-                    NnOfWrongCards = 0
+                    NbOfWrongCards = 0
                 });
                 context.SaveChanges();
                 context.BankAccounts.Add(new BankAccount
@@ -185,7 +186,7 @@ namespace CashManager.Services.Tests
 
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-              .UseInMemoryDatabase(databaseName: "CashManagerDatabase")
+              .UseInMemoryDatabase(databaseName: "PayTestChequeSucess")
               .Options;
 
             using (var context = new ApplicationDbContext(options))
@@ -197,7 +198,7 @@ namespace CashManager.Services.Tests
                     Username = "Username1",
                     Password = "Password1",
                     NbOfWrongCheques = 0,
-                    NnOfWrongCards = 0
+                    NbOfWrongCards = 0
                 });
                 context.SaveChanges();
                 context.BankAccounts.Add(new BankAccount
@@ -223,7 +224,7 @@ namespace CashManager.Services.Tests
 
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-              .UseInMemoryDatabase(databaseName: "CashManagerDatabase")
+              .UseInMemoryDatabase(databaseName: "PayTestChequeFailAttempt")
               .Options;
 
             using (var context = new ApplicationDbContext(options))
@@ -235,7 +236,7 @@ namespace CashManager.Services.Tests
                     Username = "Username1",
                     Password = "Password1",
                     NbOfWrongCheques = 5,
-                    NnOfWrongCards = 0
+                    NbOfWrongCards = 0
                 });
                 context.SaveChanges();
                 context.BankAccounts.Add(new BankAccount
@@ -260,7 +261,7 @@ namespace CashManager.Services.Tests
 
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-              .UseInMemoryDatabase(databaseName: "CashManagerDatabase")
+              .UseInMemoryDatabase(databaseName: "PayTestChequeFailFund")
               .Options;
 
             using (var context = new ApplicationDbContext(options))
@@ -272,7 +273,7 @@ namespace CashManager.Services.Tests
                     Username = "Username1",
                     Password = "Password1",
                     NbOfWrongCheques = 0,
-                    NnOfWrongCards = 0
+                    NbOfWrongCards = 0
                 });
                 context.SaveChanges();
                 context.BankAccounts.Add(new BankAccount
@@ -294,11 +295,8 @@ namespace CashManager.Services.Tests
         public void PayTestCreditCardFailAttempt()
         {
 
-            // GetUserById
-
-
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-              .UseInMemoryDatabase(databaseName: "CashManagerDatabase")
+              .UseInMemoryDatabase(databaseName: "PayTestCreditCardFailAttempt")
               .Options;
 
             using (var context = new ApplicationDbContext(options))
@@ -310,7 +308,7 @@ namespace CashManager.Services.Tests
                     Username = "Username1",
                     Password = "Password1",
                     NbOfWrongCheques = 0,
-                    NnOfWrongCards = 5
+                    NbOfWrongCards = 5
                 });
                 context.SaveChanges();
                 context.BankAccounts.Add(new BankAccount
@@ -322,7 +320,7 @@ namespace CashManager.Services.Tests
                 context.SaveChanges();
                 var resultGen = userService.Pay(1, 100, true);
                 Assert.AreEqual(resultGen.Item1, false);
-                Assert.AreEqual(resultGen.Item2, "You have reached th maximum of failed cards.");
+                Assert.AreEqual(resultGen.Item2, "You have reached the maximum of failed cards.");
             }
 
 
@@ -335,7 +333,7 @@ namespace CashManager.Services.Tests
 
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-              .UseInMemoryDatabase(databaseName: "CashManagerDatabase")
+              .UseInMemoryDatabase(databaseName: "PayTestCreditCardFailFund")
               .Options;
 
             using (var context = new ApplicationDbContext(options))
@@ -347,7 +345,7 @@ namespace CashManager.Services.Tests
                     Username = "Username1",
                     Password = "Password1",
                     NbOfWrongCheques = 0,
-                    NnOfWrongCards = 0
+                    NbOfWrongCards = 0
                 });
                 context.SaveChanges();
                 context.BankAccounts.Add(new BankAccount
@@ -369,7 +367,7 @@ namespace CashManager.Services.Tests
         public void CheckCreditCardTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase(databaseName: "CashManagerDatabase")
+               .UseInMemoryDatabase(databaseName: "CheckCreditCardTest")
                .Options;
 
                 var context = new ApplicationDbContext(options);
@@ -383,7 +381,7 @@ namespace CashManager.Services.Tests
         public void CheckChequeTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-               .UseInMemoryDatabase(databaseName: "CashManagerDatabase")
+               .UseInMemoryDatabase(databaseName: "CheckChequeTest")
                .Options;
 
             var context = new ApplicationDbContext(options);

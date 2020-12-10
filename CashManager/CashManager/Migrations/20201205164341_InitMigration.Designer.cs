@@ -101,7 +101,7 @@ namespace CashManager.Migrations
                     b.Property<int>("NbOfWronCheques")
                         .HasColumnType("int");
 
-                    b.Property<int>("NnOfWrongCards")
+                    b.Property<int>("NbOfWrongCards")
                         .HasColumnType("int");
 
                     b.Property<string>("Password")

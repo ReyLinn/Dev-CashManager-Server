@@ -30,7 +30,7 @@ namespace CashManager.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),
-                    NnOfWrongCards = table.Column<int>(nullable: false),
+                    NbOfWrongCards = table.Column<int>(nullable: false),
                     NbOfWronCheques = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
