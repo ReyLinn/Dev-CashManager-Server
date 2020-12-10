@@ -54,7 +54,7 @@ namespace CashManager.Controllers.Tests
             var jsonString = userController.Login("Wrong", "Password1");
 
             var resultGen = (jsonString.Value).ToString();
-            var resultBase = "{ success = False }";
+            var resultBase = "{ success = False, message = User not found. }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
         }
@@ -77,7 +77,7 @@ namespace CashManager.Controllers.Tests
             var jsonString = userController.Login("Username1", "Wrong");
 
             var resultGen = (jsonString.Value).ToString();
-            var resultBase = "{ success = False }";
+            var resultBase = "{ success = False, message = User not found. }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
         }
@@ -152,7 +152,7 @@ namespace CashManager.Controllers.Tests
             var jsonString = userController.Pay(1, 100, true);
 
             var resultGen = (jsonString.Value).ToString();
-            var resultBase = "{ success = False, message = Payement validated. }";
+            var resultBase = "{ success = True, message = Payement validated. }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
         }
@@ -173,7 +173,7 @@ namespace CashManager.Controllers.Tests
             var jsonString = userController.Pay(1, 100, true);
 
             var resultGen = (jsonString.Value).ToString();
-            var resultBase = "{ success = False, message = The ammount should be over 0. }";
+            var resultBase = "{ success = False, message = User not found. }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
         }

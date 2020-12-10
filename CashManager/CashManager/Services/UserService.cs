@@ -99,7 +99,7 @@ namespace CashManager.Services
                         //If the ammount the User wants to Pay is inferior to the maximum cost of transaction and the ammount is inferior to the User's BancAccount balance
                         if (ammount <= config.MaximumCostOfTransaction && ammount <= user.BankAccount.Balance)
                         {
-                            //we retrieve the ammount to the User's BankAccount Balance
+                            //We retrieve the ammount to the User's BankAccount Balance
                             user.BankAccount.Balance -= ammount;
                             //We create a new Transaction
                             var transaction = new Transaction()
