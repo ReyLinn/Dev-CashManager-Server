@@ -8,6 +8,7 @@ using CashManager.Data;
 using CashManager.Models;
 using CashManager.Controllers;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CashManager.Services.Tests
 {
@@ -94,19 +95,19 @@ namespace CashManager.Services.Tests
                 user = userService.GetUserById(1);
             }
 
-            User userBase = new User();
-            userBase.Id = 1;
-            userBase.Username = "Username1";
-            userBase.Password = "Password1";
-            userBase.NbOfWrongCheques = 0;
-            userBase.NbOfWrongCards = 0;
-            userBase.BankAccount = null;
-;
-
+            User userBase = new User
+            {
+                Id = 1,
+                Username = "Username1",
+                Password = "Password1",
+                NbOfWrongCheques = 0,
+                NbOfWrongCards = 0,
+                BankAccount = null
+            };
 
             Assert.AreEqual(user.Id, userBase.Id, "Should be equals");
             Assert.AreEqual(user.Username, userBase.Username, "Should be equals");
-            Assert.AreEqual(user.Password, userBase.Password, "Should be equals") ;
+            Assert.AreEqual(user.Password, userBase.Password, "Should be equals");
             Assert.AreEqual(user.NbOfWrongCheques, userBase.NbOfWrongCheques, "Should be equals");
             Assert.AreEqual(user.NbOfWrongCards, userBase.NbOfWrongCards, "Should be equals");
             Assert.AreEqual(user.BankAccount, userBase.BankAccount, "Should be equals");
@@ -325,6 +326,7 @@ namespace CashManager.Services.Tests
 
 
         }
+
         [TestMethod]
         public void PayTestCreditCardFailFund()
         {
@@ -363,6 +365,51 @@ namespace CashManager.Services.Tests
 
         }
 
+
+        [TestMethod()]
+        public void PayTestFailTooManyTransactions()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+              .UseInMemoryDatabase(databaseName: "PayTestFailTooManyTransactions")
+              .Options;
+
+            using (var context = new ApplicationDbContext(options))
+            {
+                var transactions = new List<Transaction>()
+                {
+                    new Transaction
+                    {
+                        Id = 1,
+                        CreatedDate = DateTime.Now.AddSeconds(-1)
+                    },
+                    new Transaction
+                    {
+                        Id = 2,
+                        CreatedDate = DateTime.Now.AddSeconds(-2)
+                    },
+                    new Transaction
+                    {
+                        Id = 3,
+                        CreatedDate = DateTime.Now.AddSeconds(-3)
+                    }
+                };
+
+                context.AddRange(transactions);
+                context.SaveChanges();
+
+                context.Users.Add(new User
+                {
+                    Id = 1,
+                    Transactions = transactions,
+                    NbOfWrongCards = 0,
+                    NbOfWrongCheques = 0
+                });
+                context.SaveChanges();
+                var userService = new UserService(context);
+                var result = userService.Pay(1, 100, true);
+                Assert.AreEqual(result.Item2, "Maximum of transactions per minute reached.");
+            }
+        }
         [TestMethod()]
         public void CheckCreditCardTest()
         {
@@ -370,8 +417,8 @@ namespace CashManager.Services.Tests
                .UseInMemoryDatabase(databaseName: "CheckCreditCardTest")
                .Options;
 
-                var context = new ApplicationDbContext(options);
-                var userService = new UserService(context);
+            var context = new ApplicationDbContext(options);
+            var userService = new UserService(context);
 
             Assert.IsTrue(userService.CheckCreditCard());
 
