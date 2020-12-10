@@ -145,7 +145,7 @@ namespace CashManager.Controllers.Tests
                     Username = "Username1",
                     Password = "Password1",
                     NbOfWrongCheques = 0,
-                    NnOfWrongCards = 0
+                    NbOfWrongCards = 0
                 });
 
             var userController = new UserController(mock.Object, null);

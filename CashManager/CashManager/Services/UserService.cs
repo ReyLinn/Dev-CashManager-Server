@@ -87,7 +87,7 @@ namespace CashManager.Services
                 //If the User pay by CreditCard AND the CreditCard is verified, AND the User didn't reached the maximum of wrong CreditCard
                 if (isCreditCard
                     && CheckCreditCard()
-                    && user.NnOfWrongCards < config.NbOfWrongCards
+                    && user.NbOfWrongCards < config.NbOfWrongCards
                 //OR the User pay by Cheque AND the Cheque is verified, AND the User didn't reached the maximum of wrong Cheque
                 || !isCreditCard
                     && CheckCheque()
@@ -138,7 +138,7 @@ namespace CashManager.Services
                 else if (isCreditCard)
                 {
                     //If the user has reached the maximum of failed cards.
-                    if (user.NnOfWrongCards < config.NbOfWrongCards)
+                    if (user.NbOfWrongCards >= config.NbOfWrongCards)
                     {
                         message = "You have reached the maximum of failed cards.";
                     }
@@ -146,7 +146,7 @@ namespace CashManager.Services
                     else
                     {
                         //We add 1 to the User's number of wrong cards
-                        user.NnOfWrongCards++;
+                        user.NbOfWrongCards++;
                         message = "Wrong credit card.";
                     }
                 }
@@ -154,7 +154,7 @@ namespace CashManager.Services
                 else
                 {
                     //If the user has reached the maximum of failed cheque.
-                    if (user.NnOfWrongCards < config.NbOfWrongCards)
+                    if (user.NbOfWrongCheques >= config.NbOfWrongCheques)
                     {
                         message = "You have reached th maximum of failed cheques.";
                     }
