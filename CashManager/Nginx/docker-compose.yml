@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+
+  reverseproxy:
+    image: lucasboisbourdin/nginx_cashmanager_proxy
+    ports: 
+      - "80:80"
+      - "443:443"
+    restart: always
+
+  cashmanager:
+    build:
+      context: ../CashManager
+      dockerfile: CashManager.Dockerfile
+    depends_on: 
+      - reverseproxy
+      - db
+    expose:
+      - "5000"
+    restart: always
+
+  db:
+    image: lucasboisbourdin/nginx_cashmanager_db
+    environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=1Secure*Password1

@@ -1,0 +1,43 @@
+version: '3.4'
+
+services:
+
+  reverseproxy:
+    build:
+      context: .
+      dockerfile: Nginx.Dockerfile
+    ports: 
+      - "80:80"
+      - "443:443"
+    restart: always
+
+  cashmanager:
+    build:
+      context: ../CashManager
+      dockerfile: CashManager.Dockerfile
+
+    # image: lucasboisbourdin/cashmanager_server:latest
+    # ports:
+    #   - "5001:443"
+    #   - "5000:80"
+    #environment: 
+      #- ASPNETCORE_ENVIRONMENT=Development
+      #- ASPNETCORE_URLS=https://+:;443:http://+:80
+      #- ASPNETCORE_HTTPS_PORT=5001
+      #- ASPNETCORE_Kestrel_Certificates_Default_Password="password"
+      #- ASPNETCORE_Kestrel_Certificates_Default_Path=/https/certificate.pfx
+    #volumes:
+      #- C:/Users/lu-37/.aspnet/https:/https:ro
+      #- D:/temp/:/https
+    depends_on: 
+      - reverseproxy
+      - db
+    expose:
+      - "5000"
+    restart: always
+
+  db:
+    image: lucasboisbourdin/cashmanager_db:latest
+    environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=1Secure*Password1

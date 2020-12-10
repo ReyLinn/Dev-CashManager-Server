@@ -17,11 +17,19 @@ namespace CashManager.Services.Tests
         public void GetUserByLoginsTest()
         {
             var mock = new Mock<ApplicationDbContext>();
-            mock.Setup(x => x.Users.Add(new User {
+            var dbUser = new User
+            {
                 Id = 1,
                 Username = "Username1",
                 Password = "Password1",
-            }));
+            };
+
+            mock.Object.Add(dbUser);
+            //mock.Setup(x => x.Users.Add(new User {
+            //    Id = 1,
+            //    Username = "Username1",
+            //    Password = "Password1",
+            //}));
 
             var userService = new UserService(mock.Object);
             var user = userService.GetUserByLogins("Username1", "Password1");

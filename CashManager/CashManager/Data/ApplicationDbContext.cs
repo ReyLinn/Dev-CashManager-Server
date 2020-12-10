@@ -55,7 +55,7 @@ namespace CashManager.Data
                     Username = "Username1",
                     Password = "Password1",
                     NbOfWrongCheques = 0,
-                    NnOfWrongCards = 0
+                    NbOfWrongCards = 0
                 }
             );
 
@@ -67,7 +67,7 @@ namespace CashManager.Data
                     Username = "Username2",
                     Password = "Password2",
                     NbOfWrongCheques = 2,
-                    NnOfWrongCards = 2
+                    NbOfWrongCards = 2
                 }
             );
 

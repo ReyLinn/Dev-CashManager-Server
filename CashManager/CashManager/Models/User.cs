@@ -21,7 +21,7 @@ namespace CashManager.Models
         public string Password { get; set; }
 
         [Required]
-        public int NnOfWrongCards { get; set; }
+        public int NbOfWrongCards { get; set; }
 
         [Required]
         public int NbOfWrongCheques { get; set; }
