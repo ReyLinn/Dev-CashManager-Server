@@ -14,6 +14,14 @@ namespace CashManager.Services.Tests
     [TestClass()]
     public class UserServiceTest
     {
+
+        /*
+         * Test methode GetUserByLogin - SUCCESS // All good
+         * @author Barthelmebs Alexis
+         * @Summary Test la méthode GetUserByLogin, créé une base de donnée locale stockée en mémoire selon le schéma options. 
+         * Ajoute un utilisateur, sauvegarde les modifications et exécute la méthode GetUserByLogins et compare le résultat.
+         * 
+         */
         [TestMethod()]
         public void GetUserByLoginsTest()
         {
@@ -38,9 +46,17 @@ namespace CashManager.Services.Tests
                 user = userService.GetUserByLogins("Username1", "Password1");
             }
 
-
             Assert.AreEqual(user.Id, 1, "User Id should be 1");
         }
+
+        /*
+         * Test methode GetUserByLogin - FAIL // username et password en arguments de recherche ne correspondent pas aux entrées de la base de donnée.
+         * @author Barthelmebs Alexis
+         * @Summary Test le retour de la méthode GetUSerByLogins d'une requête avec de mauvaises informations, créé une base de donnée locale stockée en mémoire selon le schéma options. 
+         * Ajoute un utilisateur, sauvegarde les modifications et exécute la méthode GetUserByLogins et vérifie si le résultat est nul.
+         * 
+         */
+
 
         [TestMethod()]
         public void GetUserByLoginsTestFail()
@@ -69,6 +85,14 @@ namespace CashManager.Services.Tests
             Assert.IsNull(user);
         }
 
+        /*
+         * 
+         * Test methode GetUserById - SUCCESS // all good
+         * @author Barthelmebs Alexis
+         * @Summary Test la méthode GetUserById qui à partir d'un Id retourne toutes les informtations d'un user. Créé une base de donnée locale stockée en mémoire selon le schéma options. 
+         * Ajoute un utilisateur, sauvegarde les modifications et exécute la méthode GetUserByLogins et compare le résultat.
+         * 
+         */
 
         [TestMethod()]
         public void GetUserByIdTestSuccess()
@@ -101,8 +125,6 @@ namespace CashManager.Services.Tests
             userBase.NbOfWrongCheques = 0;
             userBase.NbOfWrongCards = 0;
             userBase.BankAccount = null;
-;
-
 
             Assert.AreEqual(user.Id, userBase.Id, "Should be equals");
             Assert.AreEqual(user.Username, userBase.Username, "Should be equals");
@@ -112,6 +134,15 @@ namespace CashManager.Services.Tests
             Assert.AreEqual(user.BankAccount, userBase.BankAccount, "Should be equals");
         }
 
+
+        /*
+         * 
+         * Test methode GetUserById - FAIL // Arguement de recherche ne correspond à aucune entrée de base de donnée.
+         * @author Barthelmebs Alexis
+         * @Summary Test la méthode GetUserById qui à partir d'un Id retourne toutes les informtations d'un user. Créé une base de donnée locale stockée en mémoire selon le schéma options. 
+         * Ajoute un utilisateur, sauvegarde les modifications et exécute la méthode GetUserByLogins et compare le résultat.
+         * 
+         */
         [TestMethod]
         public void GetUserByIdTestFail()
         {
@@ -140,13 +171,19 @@ namespace CashManager.Services.Tests
 
         }
 
+        /*
+         * 
+         * Test methode Pay via CreditCard = true - SUCCESS // all good
+         * @author Barthelmebs Alexis
+         * @Summary Test la méthode Pay via carte de crédit avec un Id et un montant valide. Créer une base de donnée locale et y ajoute un utilisateur et un compte bancaire. 
+         * Exécute la méthode Pay et compare les résultats.
+         * 
+         */
+
+
         [TestMethod()]
         public void PayTestCreditCardSucess()
         {
-
-            // GetUserById
-
-
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
               .UseInMemoryDatabase(databaseName: "PayTestCreditCardSucess")
               .Options;
@@ -163,28 +200,35 @@ namespace CashManager.Services.Tests
                     NbOfWrongCards = 0
                 });
                 context.SaveChanges();
+
                 context.BankAccounts.Add(new BankAccount
                 {
                     Id = 1,
                     Balance = 10000,
                     OwnerId = 1
                 });
+
                 context.SaveChanges();
+
                 var resultGen = userService.Pay(1, 100, true);
+
                 Assert.AreEqual(resultGen.Item1, true);
                 Assert.AreEqual(resultGen.Item2, "Payment validated.");
             }
-
-
         }
+
+        /*
+         * 
+         * Test methode Pay via CreditCard = false - SUCCESS // all good
+         * @author Barthelmebs Alexis
+         * @Summary Test la méthode Pay via cheque avec un Id et un montant valide. Créer une base de donnée locale et y ajoute un utilisateur et un compte bancaire. 
+         * Exécute la méthode Pay et compare les résultats.
+         * 
+         */
 
         [TestMethod]
         public void PayTestChequeSucess()
         {
-
-            // GetUserById
-
-
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
               .UseInMemoryDatabase(databaseName: "PayTestChequeSucess")
               .Options;
@@ -201,6 +245,7 @@ namespace CashManager.Services.Tests
                     NbOfWrongCards = 0
                 });
                 context.SaveChanges();
+
                 context.BankAccounts.Add(new BankAccount
                 {
                     Id = 1,
@@ -208,7 +253,9 @@ namespace CashManager.Services.Tests
                     OwnerId = 1
                 });
                 context.SaveChanges();
+
                 var resultGen = userService.Pay(1, 100, false);
+
                 Assert.AreEqual(resultGen.Item1, true);
                 Assert.AreEqual(resultGen.Item2, "Payment validated.");
             }
@@ -216,13 +263,18 @@ namespace CashManager.Services.Tests
 
         }
 
+        /*
+         * 
+         * Test methode Pay via CreditCard = false - FAIL // Nombre de cheques refusé excessif - 
+         * @author Barthelmebs Alexis
+         * @Summary Test la méthode Pay via cheque avec un Id et un montant valide. Créer une base de donnée locale et y ajoute un utilisateur ayant excédé le nombre de cheques refusé et un compte bancaire. 
+         * Exécute la méthode Pay et compare les résultats.
+         * 
+         */
+
         [TestMethod]
         public void PayTestChequeFailAttempt()
         {
-
-            // GetUserById
-
-
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
               .UseInMemoryDatabase(databaseName: "PayTestChequeFailAttempt")
               .Options;
@@ -239,6 +291,7 @@ namespace CashManager.Services.Tests
                     NbOfWrongCards = 0
                 });
                 context.SaveChanges();
+
                 context.BankAccounts.Add(new BankAccount
                 {
                     Id = 1,
@@ -246,20 +299,26 @@ namespace CashManager.Services.Tests
                     OwnerId = 1
                 });
                 context.SaveChanges();
+
                 var resultGen = userService.Pay(1, 100, false);
                 Assert.AreEqual(resultGen.Item1, false);
                 Assert.AreEqual(resultGen.Item2, "You have reached th maximum of failed cheques.");
             }
-
-
         }
+
+        /*
+        * 
+        * Test methode Pay via CreditCard = false - FAIL // fonds insuffisants 
+        * @author Barthelmebs Alexis
+        * @Summary Test la méthode Pay via cheque avec un Id et un montant valide. Créer une base de donnée locale. 
+        * Ajoute un utilisateur et un compte bancaire dont le solde est inférieur au montant à payer. 
+        * Exécute la méthode Pay et compare les résultats.
+        * 
+        */
+
         [TestMethod]
         public void PayTestChequeFailFund()
         {
-
-            // GetUserById
-
-
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
               .UseInMemoryDatabase(databaseName: "PayTestChequeFailFund")
               .Options;
@@ -276,6 +335,7 @@ namespace CashManager.Services.Tests
                     NbOfWrongCards = 0
                 });
                 context.SaveChanges();
+
                 context.BankAccounts.Add(new BankAccount
                 {
                     Id = 1,
@@ -283,13 +343,23 @@ namespace CashManager.Services.Tests
                     OwnerId = 1
                 });
                 context.SaveChanges();
+
                 var resultGen = userService.Pay(1, 100, false);
                 Assert.AreEqual(resultGen.Item1, false);
                 Assert.AreEqual(resultGen.Item2, "Your Bank Account's Balance is inferior to the ammount of your bill.");
             }
-
-
         }
+
+
+        /*
+        * 
+        * Test methode Pay via CreditCard = true - FAIL // nombre de refus de carte excessif 
+        * @author Barthelmebs Alexis
+        * @Summary Test la méthode Pay via cheque avec un Id et un montant valide. Créer une base de donnée locale. 
+        * Ajoute un utilisateur dont le nombre de  payement par carte refusé est au delà de la limite et un compte bancaire. 
+        * Exécute la méthode Pay et compare les résultats.
+        * 
+        */
 
         [TestMethod]
         public void PayTestCreditCardFailAttempt()
@@ -311,6 +381,7 @@ namespace CashManager.Services.Tests
                     NbOfWrongCards = 5
                 });
                 context.SaveChanges();
+
                 context.BankAccounts.Add(new BankAccount
                 {
                     Id = 1,
@@ -318,20 +389,26 @@ namespace CashManager.Services.Tests
                     OwnerId = 1
                 });
                 context.SaveChanges();
+
                 var resultGen = userService.Pay(1, 100, true);
                 Assert.AreEqual(resultGen.Item1, false);
                 Assert.AreEqual(resultGen.Item2, "You have reached the maximum of failed cards.");
             }
-
-
         }
+
+        /*
+        * 
+        * Test methode Pay via CreditCard = true - FAIL // fonds insuffisant 
+        * @author Barthelmebs Alexis
+        * @Summary Test la méthode Pay via cheque avec un Id et un montant valide. Créer une base de donnée locale. 
+        * Ajoute un utilisateur et un compte bancaire dont le solde est inférieur au montant à payer. 
+        * Exécute la méthode Pay et compare les résultats.
+        * 
+        */
+
         [TestMethod]
         public void PayTestCreditCardFailFund()
         {
-
-            // GetUserById
-
-
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
               .UseInMemoryDatabase(databaseName: "PayTestCreditCardFailFund")
               .Options;
@@ -348,6 +425,7 @@ namespace CashManager.Services.Tests
                     NbOfWrongCards = 0
                 });
                 context.SaveChanges();
+
                 context.BankAccounts.Add(new BankAccount
                 {
                     Id = 1,
@@ -355,13 +433,20 @@ namespace CashManager.Services.Tests
                     OwnerId = 1
                 });
                 context.SaveChanges();
+
                 var resultGen = userService.Pay(1, 100, true);
                 Assert.AreEqual(resultGen.Item1, false);
                 Assert.AreEqual(resultGen.Item2, "Your Bank Account's Balance is inferior to the ammount of your bill.");
             }
-
-
         }
+
+        /*
+        * 
+        * Test methode CheckCreditCard - SUCCESS // all good
+        * @author Barthelmebs Alexis
+        * @Summary Test la méthode CheckCreditCard. Dans le cadre du projet, le retour est fixé à true. On vérifie que le retour de méthode est donc bien true.
+        * 
+        */
 
         [TestMethod()]
         public void CheckCreditCardTest()
@@ -376,6 +461,14 @@ namespace CashManager.Services.Tests
             Assert.IsTrue(userService.CheckCreditCard());
 
         }
+
+        /*
+        * 
+        * Test methode CheckCheque - SUCCESS // all good
+        * @author Barthelmebs Alexis
+        * @Summary Test la méthode CheckCheque. Dans le cadre du projet, le retour est fixé à true. On vérifie que le retour de méthode est donc bien true.
+        * 
+        *//
 
         [TestMethod()]
         public void CheckChequeTest()
