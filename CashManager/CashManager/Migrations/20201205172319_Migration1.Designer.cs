@@ -115,7 +115,7 @@ namespace CashManager.Migrations
                     b.Property<int>("NbOfWrongCheques")
                         .HasColumnType("int");
 
-                    b.Property<int>("NnOfWrongCards")
+                    b.Property<int>("NbOfWrongCards")
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
@@ -138,7 +138,7 @@ namespace CashManager.Migrations
                         {
                             Id = 1,
                             NbOfWrongCheques = 0,
-                            NnOfWrongCards = 0,
+                            NbOfWrongCards = 0,
                             Password = "Password1",
                             Username = "Username1"
                         });

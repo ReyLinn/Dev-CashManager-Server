@@ -71,6 +71,7 @@ namespace CashManager.Services
         /// <returns>A Tuple<bool, string> which are the success and message returned</returns>
         public Tuple<bool, string> Pay(int userId, float ammount, bool isCreditCard)
         {
+            var dateTimeToCompare = DateTime.Now;
             //We initialize the returned variables of the method
             var success = false;
             var message = "";
@@ -94,12 +95,12 @@ namespace CashManager.Services
                     && user.NbOfWrongCheques < config.NbOfWrongCheques)
                 {
                     //If we found a Number of transactions made under a minute inferior the the maximum of transactions per minute
-                    if (user.Transactions.Where(t => t.CreatedDate <= DateTime.Now.AddMinutes(-1)).Count() < config.NumberOfTransactionPerMinute)
+                    if (user.Transactions.Where(t => t.CreatedDate <= dateTimeToCompare && t.CreatedDate >= dateTimeToCompare.AddMinutes(-1)).Count() < config.NumberOfTransactionPerMinute)
                     {
                         //If the ammount the User wants to Pay is inferior to the maximum cost of transaction and the ammount is inferior to the User's BancAccount balance
                         if (ammount <= config.MaximumCostOfTransaction && ammount <= user.BankAccount.Balance)
                         {
-                            //we retrieve the ammount to the User's BankAccount Balance
+                            //We retrieve the ammount to the User's BankAccount Balance
                             user.BankAccount.Balance -= ammount;
                             //We create a new Transaction
                             var transaction = new Transaction()

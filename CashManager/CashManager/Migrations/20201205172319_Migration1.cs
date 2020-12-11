@@ -27,7 +27,7 @@ namespace CashManager.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "NbOfWrongCheques", "NnOfWrongCards", "Password", "Username" },
+                columns: new[] { "Id", "NbOfWrongCheques", "NbOfWrongCards", "Password", "Username" },
                 values: new object[] { 1, 0, 0, "Password1", "Username1" });
 
             migrationBuilder.InsertData(

@@ -15,8 +15,10 @@ namespace CashManager.Controllers.Tests
     {
         /**
          * Test methode Login - SUCCESS // Good Login
-         * @Author Barthelmebs Alexis
+         * @Author: Barthelmebs Alexis
+         * @Summary: Test la méthode Login. Mock le retour de la méthode GetUSerByLogins. Compare les résultats qui doivent être égaux.
          */
+
         [TestMethod]
         public void LoginTestSucces()
         {
@@ -39,6 +41,7 @@ namespace CashManager.Controllers.Tests
         /**
          * Test methode Login - SUCCESS // Wrong Username
          * @author Barthelmebs Alexis
+         * @Summary Test les retours d'erreur sur le username de la méthode Login. Mock le retour de la méthode GetUSerByLogins. Compare les résultats qui doivent être égaux.
          */
         [TestMethod]
         public void LoginTestFailUser()
@@ -54,7 +57,7 @@ namespace CashManager.Controllers.Tests
             var jsonString = userController.Login("Wrong", "Password1");
 
             var resultGen = (jsonString.Value).ToString();
-            var resultBase = "{ success = False }";
+            var resultBase = "{ success = False, message = User not found. }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
         }
@@ -62,6 +65,7 @@ namespace CashManager.Controllers.Tests
         /**
          * Test methode Login - SUCCESS // Wrong Password
          * @author Barthelmebs Alexis
+         * @Summary Test les retours d'erreur sur le password de la méthode Login. Mock le retour de la méthode GetUSerByLogins. Compare les résultats qui doivent être égaux.
          */
         [TestMethod]
         public void LoginTestFailPass()
@@ -77,7 +81,7 @@ namespace CashManager.Controllers.Tests
             var jsonString = userController.Login("Username1", "Wrong");
 
             var resultGen = (jsonString.Value).ToString();
-            var resultBase = "{ success = False }";
+            var resultBase = "{ success = False, message = User not found. }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
         }
@@ -85,6 +89,7 @@ namespace CashManager.Controllers.Tests
         /**
          * Test methode GetPriceTest - SUCCESS // good product ref
          * @author Barthelmebs Alexis
+         * @Summary Test la réussite de la méthode GetProductPriceTest. Mock le retour de la méthode GetProductByReference. Compare les résultats qui doivent être égaux.
          */
         [TestMethod]
         public void GetProductPriceTestSucces()
@@ -108,6 +113,7 @@ namespace CashManager.Controllers.Tests
         /**
          * Test methode GetPriceTest - SUCCESS // wrong product ref
          * @author Barthelmebs Alexis
+         * @Summary Test le retour d'erreur de référence de la méthode GetProductPriceTest. Mock le retour de la méthode GetProductByReference. Compare les résultats qui doivent être égaux.
          */
         [TestMethod]
         public void GetProductPriceTestFail()
@@ -131,6 +137,7 @@ namespace CashManager.Controllers.Tests
         /**
          * Test methode Pay - SUCCESS // all good
          * @author Barthelmebs Alexis
+         * @Summary Test la réussite de la méthode Pay. Mock le retour de la méthode Pay de l'interface IUserService et le retour de GetUserById. Compare les résultats qui doivent être égaux.
          */
         [TestMethod]
         public void PayTestSuccess()
@@ -152,15 +159,18 @@ namespace CashManager.Controllers.Tests
             var jsonString = userController.Pay(1, 100, true);
 
             var resultGen = (jsonString.Value).ToString();
-            var resultBase = "{ success = False, message = Payement validated. }";
+            var resultBase = "{ success = True, message = Payement validated. }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
         }
+
+
 
         /**
         * Test methode Pay - SUCCESS // fail getUserbyId
         * la méthode Pay de UserService est testée dans UserServiceTest
         * @author Barthelmebs Alexis
+        * @Summary Test le retour d'erreur par mauvais utilisateur de la méthode Pay. Mock le retour de la méthode Pay de l'interface IUserService et le retour de GetUserById. Compare les résultats qui doivent être égaux.
         */
         [TestMethod]
         public void PayTestFailByGetUser()
@@ -173,7 +183,7 @@ namespace CashManager.Controllers.Tests
             var jsonString = userController.Pay(1, 100, true);
 
             var resultGen = (jsonString.Value).ToString();
-            var resultBase = "{ success = False, message = The ammount should be over 0. }";
+            var resultBase = "{ success = False, message = User not found. }";
 
             Assert.AreEqual(resultGen, resultBase, "Should be ok");
         }
