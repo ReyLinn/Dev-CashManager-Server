@@ -2,11 +2,9 @@
 using CashManager.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace CashManager.Services
 {
@@ -95,7 +93,7 @@ namespace CashManager.Services
                     && user.NbOfWrongCheques < config.NbOfWrongCheques)
                 {
                     //If we found a Number of transactions made under a minute inferior the the maximum of transactions per minute
-                    if (user.Transactions.Where(t => t.CreatedDate <= dateTimeToCompare && t.CreatedDate >= dateTimeToCompare.AddMinutes(-1)).Count() < config.NumberOfTransactionPerMinute)
+                    if (user.Transactions.Count(t => t.CreatedDate <= dateTimeToCompare && t.CreatedDate >= dateTimeToCompare.AddMinutes(-1)) < config.NumberOfTransactionPerMinute)
                     {
                         //If the ammount the User wants to Pay is inferior to the maximum cost of transaction and the ammount is inferior to the User's BancAccount balance
                         if (ammount <= config.MaximumCostOfTransaction && ammount <= user.BankAccount.Balance)

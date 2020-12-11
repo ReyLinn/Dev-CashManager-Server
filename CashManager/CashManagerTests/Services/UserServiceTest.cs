@@ -515,7 +515,7 @@ namespace CashManager.Services.Tests
         * @author Barthelmebs Alexis
         * @Summary Test la méthode CheckCheque. Dans le cadre du projet, le retour est fixé à true. On vérifie que le retour de méthode est donc bien true.
         * 
-        *//
+        */
 
         [TestMethod()]
         public void CheckChequeTest()

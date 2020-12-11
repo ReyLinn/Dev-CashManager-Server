@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CashManager.Models
+﻿namespace CashManager.Models
 {
     /// <summary>
     /// The payment Configuration from a Json File

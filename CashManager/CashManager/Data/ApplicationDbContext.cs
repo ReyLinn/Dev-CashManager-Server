@@ -1,8 +1,5 @@
 ﻿using CashManager.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CashManager.Data
 {
@@ -23,32 +20,32 @@ namespace CashManager.Data
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
+            base.OnModelCreating(modelBuilder);
             //We set a unique index on the User's Username
-            builder.Entity<User>()
+            modelBuilder.Entity<User>()
                 .HasIndex(u => u.Username)
                 .IsUnique();
 
             //We set a One to One relation between a User and BankAccount
-            builder.Entity<User>()
+            modelBuilder.Entity<User>()
                 .HasOne(u => u.BankAccount)
                 .WithOne(b => b.Owner)
                 .HasForeignKey<BankAccount>(b => b.OwnerId);
 
             //We set a Many to One relation between a User and Transactions
-            builder.Entity<User>()
+            modelBuilder.Entity<User>()
                 .HasMany(u => u.Transactions)
                 .WithOne(t => t.User);
 
             //We set a unique index on the Product's Reference
-            builder.Entity<Product>()
+            modelBuilder.Entity<Product>()
                 .HasIndex(p => p.Reference)
                 .IsUnique();
 
             //We seed data to the User's table
-            builder.Entity<User>().HasData(
+            modelBuilder.Entity<User>().HasData(
                 new User
                 {
                     Id = 1,
@@ -60,7 +57,7 @@ namespace CashManager.Data
             );
 
             //We seed data to the User's table
-            builder.Entity<User>().HasData(
+            modelBuilder.Entity<User>().HasData(
                 new User
                 {
                     Id = 2,
@@ -72,7 +69,7 @@ namespace CashManager.Data
             );
 
             //We seed data to the BankAccount's table
-            builder.Entity<BankAccount>().HasData(
+            modelBuilder.Entity<BankAccount>().HasData(
                 new BankAccount
                 {
                     Id = 1,
@@ -82,7 +79,7 @@ namespace CashManager.Data
             );
 
             //We seed data to the Product's table
-            builder.Entity<Product>().HasData(
+            modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
                     Id = 1,
