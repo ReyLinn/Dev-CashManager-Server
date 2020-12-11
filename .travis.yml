@@ -3,6 +3,7 @@ mono: none
 dist: xenial
 dotnet: 3.1
 install:
+  - cd ./CashManager
   - dotnet restore
 script:
   - dotnet build
