@@ -7,7 +7,7 @@ install:
   - dotnet restore ./CashManager/CashManager.csproj
   - dotnet restore ./CashManagerTests/CashManagerTests.csproj
 script:
-  - dotnet build
+  - dotnet build ./CashManager/CashManager.csproj
   - dotnet test CashManagerTests/CashManagerTests.csproj
 #services:
 #  - docker
