@@ -46,13 +46,11 @@ namespace CashManager
             }
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.UseHttpsRedirection();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
 
@@ -62,6 +60,7 @@ namespace CashManager
                     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
                 });
             }
+            app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
 
             app.UseRouting();
