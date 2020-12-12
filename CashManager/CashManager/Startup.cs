@@ -25,7 +25,7 @@ namespace CashManager
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("AppDbConnection")));
             services.AddControllersWithViews();
             services.AddRazorPages();
 
