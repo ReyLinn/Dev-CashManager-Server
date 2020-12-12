@@ -2,6 +2,8 @@ language: chsarp
 mono: none
 dist: xenial
 dotnet: 3.1
+addons:
+ ssh_known_hosts: 91.166.139.178
 services:
 - docker
 install:
