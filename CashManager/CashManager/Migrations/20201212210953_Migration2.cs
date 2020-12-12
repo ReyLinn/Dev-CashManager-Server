@@ -6,10 +6,10 @@ namespace CashManager.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "NnOfWrongCards",
-                table: "Users",
-                newName: "NbOfWrongCards");
+            //migrationBuilder.RenameColumn(
+            //    name: "NnOfWrongCards",
+            //    table: "Users",
+            //    newName: "NbOfWrongCards");
 
             migrationBuilder.InsertData(
                 table: "Users",

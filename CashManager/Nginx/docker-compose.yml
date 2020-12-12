@@ -3,7 +3,10 @@ version: '3.4'
 services:
 
   reverseproxy:
-    image: lucasboisbourdin/nginx_cashmanager_proxy
+    #image: lucasboisbourdin/nginx_cashmanager_proxy
+    build:
+      context: .
+      dockerfile: Nginx.Dockerfile
     ports: 
       - "80:80"
       - "443:443"
@@ -21,7 +24,8 @@ services:
     restart: always
 
   db:
-    image: lucasboisbourdin/nginx_cashmanager_db
+    #image: lucasboisbourdin/nginx_cashmanager_db
+    image: "mcr.microsoft.com/mssql/server:2017-latest"
     environment:
         - ACCEPT_EULA=Y
         - SA_PASSWORD=1Secure*Password1
