@@ -28,4 +28,5 @@ before_install:
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploy_rsa
 - ssh-add /tmp/deploy_rsa
-- sudo sshpass -p "$LUCAS_PASSWORD" ssh -i /tmp/deploy_rsa lucas@91.166.139.178
+- ssh -i /tmp/deploy_rsa lucas@91.166.139.178 cd Documents && touch helloimtravis
+#- sudo sshpass -p "$LUCAS_PASSWORD" ssh -i /tmp/deploy_rsa lucas@91.166.139.178
